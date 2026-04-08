@@ -195,7 +195,7 @@ def list_tasks():
 
 
 @app.post("/reset")
-def reset(req: ResetRequest):
+def reset(req: ResetRequest = Body(default=ResetRequest())):
     """Reset (or start) an episode. Returns initial observation."""
     try:
         env = RescueMeshEnv(task_id=req.task_id, seed=req.seed)
@@ -212,7 +212,9 @@ def reset(req: ResetRequest):
 
 
 @app.post("/step")
-def step(req: StepRequest):
+def step(req: StepRequest = Body(default=None)):
+    if req is None:
+        raise HTTPException(400,"Missing action")
     """Execute one action. Returns (observation, reward, done, info)."""
     env = _get_env(req.session_id)
     try:
