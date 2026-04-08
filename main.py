@@ -205,8 +205,8 @@ def reset(req: ResetRequest = Body(default=ResetRequest())):
         _histories[req.session_id].append(obs)
         return {
             "observation": obs,
-            "info": {}
-        }
+            "info": {},
+            "done": False        }
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

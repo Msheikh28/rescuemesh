@@ -90,8 +90,9 @@ class Observation:
     nodes: list[dict]
     obstacles: list[dict]
     connected_pairs: list[list[str]]
-    coverage_ratio: float        # 0.0–1.0
+    coverage_ratio: float
     active_relays: int
+    relays_placed: int   # ADD THIS LINE
     step_count: int
     task_id: str
     max_steps: int
@@ -466,10 +467,11 @@ class RescueMeshEnv:
             connected_pairs=connected,
             coverage_ratio=coverage,
             active_relays=self._relays_placed,
+            relays_placed=self._relays_placed,
             step_count=self._step_count,
             task_id=self.task_id.value,
             max_steps=self._config["max_steps"],
-        )
+)
 
     def _compute_connected_pairs(self) -> list[list[str]]:
         """Return pairs of nodes with viable signal links."""
